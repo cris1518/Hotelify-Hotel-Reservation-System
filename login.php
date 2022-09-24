@@ -46,8 +46,6 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
             $vals=$res->fetch_assoc();
 
             if (password_verify($password, $vals['Password'])) {
-                setcookie("test", "login");
-
                 session_start();
 
                 // Store data in session variables

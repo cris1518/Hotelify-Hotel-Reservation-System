@@ -1,0 +1,13 @@
+.card-room-img {
+    max-height: 200px !important;
+    height: 200px !important;
+    object-fit: cover;
+}
+
+.err_form {
+    color: red !important;
+}
+
+.btn-action a {
+    color: white !important;
+}

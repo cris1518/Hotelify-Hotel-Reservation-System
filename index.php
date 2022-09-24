@@ -1,5 +1,13 @@
 <?php
 
+
+// Check if the user is already logged in, if yes then redirect him to welcome page
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false) {
+    header("location: login.php");
+    exit;
+}
+
+
 $content="home.php";
 $view=(isset($_GET['p'])&& $_GET['p']!=='') ? $_GET['p'] : '';
 
@@ -25,7 +33,7 @@ switch ($view) {
         $content="rooms.php";
         break;
     default:
-       $content="home.php";
+        $content="home.php";
 
         break;
 }
