@@ -5,3 +5,21 @@
 .form-err {
     color: red;
 }
+
+.room-info h2 {
+
+    text-transform: capitalize;
+}
+
+.userman {
+
+    margin-left: -45px;
+    padding-right: 10px;
+}
+
+.usr-img-room {
+    height: 250px !important;
+    object-fit: cover !important;
+    max-height: 350px !important;
+    width: 100%;
+}

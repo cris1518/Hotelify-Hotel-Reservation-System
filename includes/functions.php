@@ -54,9 +54,9 @@ function RoomsList()
     } else {
         while ($row=$res->fetch_array()) {
             echo ' <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up">
-          <a href="rooms/room.php?id='.$row['id'].'" class="room">
+          <a href="pages/rooms/room.php?id='.$row['id'].'" class="room">
             <figure class="img-wrap">
-              <img  src="'.getSiteUrl().'/images/'.$row['Immagine'].'" alt="Free website template" class="img-fluid mb-3">
+              <img  src="'.getSiteUrl().'/images/'.$row['Immagine'].'" alt="Free website template" class="img-fluid mb-3 usr-img-room">
             </figure>
             <div class="p-3 text-center room-info">
               <h2>'.$row['Nome'].'</h2>
@@ -84,4 +84,26 @@ function getRoom($id)
 
     $conn->close();
     return $out;
+}
+
+
+function getUser($id)
+{
+    $conn=dbconn(DBHOST, DBNAME, DBUSERNAME, DBPASSWORD);
+    $sql="SELECT * FROM users WHERE id=$id";
+    $res=$conn->query($sql);
+    $out=$res->fetch_assoc();
+
+    $conn->close();
+    return $out;
+}
+
+
+function updateUser($id, $name, $surname, $phone, $email)
+{
+    $conn=dbconn(DBHOST, DBNAME, DBUSERNAME, DBPASSWORD);
+    $sql="UPDATE users SET Nome='$name',Cognome='$surname',Telefono='$phone',Email='$email' WHERE id=$id";
+    $res=$conn->query($sql);
+    $conn->close();
+    header("Location:".getSiteUrl()."/user/user.php");
 }

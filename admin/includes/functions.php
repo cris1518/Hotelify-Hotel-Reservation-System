@@ -1,31 +1,8 @@
 <?php
 
-//GET THE WEBSITE BASE URL
-function getSiteUrl()
-{
-    $rootAfter = $_SERVER['REQUEST_URI'];
-    $dir_array = parse_url($rootAfter);
-    preg_match('@/(?<path>[^/]+)@', $dir_array['path'], $x);
-    $folderName = $x['path'];
-    return 'http://'.$_SERVER['SERVER_NAME']."/".
-$folderName;
-}
-
-//GENERATE A RANDOM STRING
-function genUniq($length = 20)
-{
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $randomString;
-}
-
 
 //GET ALL THE ROOMS IN THE DB
-function RoomsList()
+function AdmRoomsList()
 {
     $conn=dbconn(DBHOST, DBNAME, DBUSERNAME, DBPASSWORD);
     $sql="SELECT * FROM stanze";
@@ -63,7 +40,7 @@ function createRoom($name, $price, $short_desc, $desc, $room_num, $person_num, $
     $nwimage=genUniq()."_".$image['name'];
     move_uploaded_file($_FILES['img']['tmp_name'], "../../images/". $nwimage);
     $conn=dbconn(DBHOST, DBNAME, DBUSERNAME, DBPASSWORD);
-    $sql="INSERT INTO stanze (Nome,Breve_Descrizione,Descrizione,Prezzo,Numero_Stanze,Numero_Persone,Immagine)
+    $sql="INSERT INTO stanze (Nome,Prezzo,Breve_Descrizione,Descrizione,Numero_Stanze,Numero_Persone,Immagine)
     VALUES('$name',$price,'$short_desc','$desc',$room_num,$person_num,'$nwimage');
     ";
     $res=$conn->query($sql);
@@ -95,7 +72,7 @@ function updateRoom($name, $price, $short_desc, $desc, $room_num, $person_num, $
 }
 
 //GET THE INFO OF A SPECIFIC ROOM
-function getRoom($id)
+function AdmgetRoom($id)
 {
     $conn=dbconn(DBHOST, DBNAME, DBUSERNAME, DBPASSWORD);
     $sql="SELECT * FROM stanze WHERE id=$id";

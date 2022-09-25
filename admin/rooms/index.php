@@ -17,7 +17,7 @@
     <div class="row mb-4">
         <?php
 
-RoomsList();
+AdmRoomsList();
 
 ?>
 

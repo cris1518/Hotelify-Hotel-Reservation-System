@@ -35,3 +35,10 @@ $folderName."/"?>css/fancybox.min.css">
 <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="<?php echo 'http://'.$_SERVER['SERVER_NAME']."/".
 $folderName."/"?>css/style.css">
+
+<link href="<?php echo 'http://'.$_SERVER['SERVER_NAME']."/".
+$folderName."/"?>/assets/fontawesome/css/fontawesome.css" rel="stylesheet">
+<link href="<?php echo 'http://'.$_SERVER['SERVER_NAME']."/".
+$folderName."/"?>/assets/fontawesome/css/brands.css" rel="stylesheet">
+<link href="<?php echo 'http://'.$_SERVER['SERVER_NAME']."/".
+$folderName."/"?>/assets/fontawesome/css/solid.css" rel="stylesheet">

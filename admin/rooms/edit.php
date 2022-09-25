@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD']=="POST") {
 }
 
 if (isset($_GET['id'])) {
-    $room_info=getRoom($_GET['id']);
+    $room_info=AdmgetRoom($_GET['id']);
 }
 
 ?>
