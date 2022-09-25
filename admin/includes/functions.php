@@ -1,5 +1,6 @@
 <?php
 
+//GET THE WEBSITE BASE URL
 function getSiteUrl()
 {
     $rootAfter = $_SERVER['REQUEST_URI'];
@@ -10,7 +11,7 @@ function getSiteUrl()
 $folderName;
 }
 
-
+//GENERATE A RANDOM STRING
 function genUniq($length = 20)
 {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -23,7 +24,7 @@ function genUniq($length = 20)
 }
 
 
-//Get Rooms List
+//GET ALL THE ROOMS IN THE DB
 function RoomsList()
 {
     $conn=dbconn(DBHOST, DBNAME, DBUSERNAME, DBPASSWORD);
@@ -43,7 +44,7 @@ function RoomsList()
                         '.$row['Breve_Descrizione'].'
                     </p>
                     <a href="rooms/edit.php?t=edit&id='.$row['id'].'" class="btn btn-outline-primary">Modifica</a>
-                    <a href="rooms/delete.php?id='.$row['id'].'" class="btn btn-outline-danger">Elimina</a>
+                    <button type="button"  onclick="delRoom('.$row['id'].')" class="btn btn-outline-danger">Elimina</button>
                 </div>
             </div>
         </div>
@@ -93,7 +94,7 @@ function updateRoom($name, $price, $short_desc, $desc, $room_num, $person_num, $
     header("Location: ../index.php?p=rooms");
 }
 
-
+//GET THE INFO OF A SPECIFIC ROOM
 function getRoom($id)
 {
     $conn=dbconn(DBHOST, DBNAME, DBUSERNAME, DBPASSWORD);
@@ -101,6 +102,37 @@ function getRoom($id)
     $res=$conn->query($sql);
     $out=$res->fetch_assoc();
 
+    $conn->close();
+    return $out;
+}
+
+//DELETE A ROOM USING THE ID AS SEARCH PARAMETER
+function delRoom($id)
+{
+    $conn=dbconn(DBHOST, DBNAME, DBUSERNAME, DBPASSWORD);
+    $sql="DELETE FROM stanze WHERE id=$id";
+    $res=$conn->query($sql);
+    $conn->close();
+    return $res;
+}
+
+//LIST OF REGISTERED USERS
+function getUsers()
+{
+    $conn=dbconn(DBHOST, DBNAME, DBUSERNAME, DBPASSWORD);
+    $sql="SELECT * FROM users";
+    $res=$conn->query($sql);
+
+    $out="";
+    while ($row = $res->fetch_assoc()) {
+        $out.="<tr>
+                <td>".$row['Nome']."</td>
+                <td>".$row['Cognome']."</td>
+                <td>".$row['Username']."</td>
+                <td>".$row['Telefono']."</td>
+                <td>".$row['Email']."</td>
+            </tr>";
+    }
     $conn->close();
     return $out;
 }

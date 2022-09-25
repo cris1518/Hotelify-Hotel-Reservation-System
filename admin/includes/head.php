@@ -54,3 +54,7 @@ $folderName."/admin/"?>assets/vendor/js/helpers.js"></script>
  <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
  <script src="<?php echo 'http://'.$_SERVER['SERVER_NAME']."/".
 $folderName."/admin/"?>assets/js/config.js"></script>
+
+ <!-- jQuery DataTables -->
+ <link rel="stylesheet" type="text/css" href="<?php echo 'http://'.$_SERVER['SERVER_NAME']."/".
+$folderName."/admin/"?>libs/datatables/datatables.min.css" />

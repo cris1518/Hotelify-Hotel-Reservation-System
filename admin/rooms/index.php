@@ -22,3 +22,6 @@ RoomsList();
 ?>
 
     </div>
+
+    <?php
+    require_once("../includes/js.php");

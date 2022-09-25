@@ -30,7 +30,7 @@ switch ($view) {
         $content="reservation.php";
         break;
     case 'rooms':
-        $content="rooms.php";
+        $content="rooms/index.php";
         break;
     default:
         $content="home.php";

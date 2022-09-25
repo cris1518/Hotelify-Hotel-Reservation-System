@@ -130,21 +130,29 @@ if (isset($_GET['id'])) {
 
                     <div class="mb-3 col-lg-4 offset-lg-1">
                         <label for=" name" class="form-label">Breve Descrizione</label> <span class="err_form"><?php echo($err_sdescr) ?></span>
-                        <input type="text" class="form-control" id="short_desc" name="short_desc"
+                        <input type="text" maxlength="100" class="form-control" id="short_desc" name="short_desc"
                             value='<?php echo(isset($room_info) ? $room_info['Breve_Descrizione'] : $_POST['short_desc']); ?>'>
                     </div>
 
                     <div class="mb-3 col-lg-4 offset-lg-2">
                         <label for="name" class="form-label">Immagine</label> <span class="err_form"><?php echo($err_image) ?></span>
-                        <?php echo(isset($room_info) ? '<img style="width:100px;" src="'.getSiteUrl()."/images/".$room_info['Immagine'].'">' : ''); ?>
+
                         <input type="file" class="form-control" id="img" name="img">
                     </div>
+
+                    <div class="mb-3 col-lg-5 offset-lg-7">
+                        <?php echo(isset($room_info) ? '<img style="width:100px;" src="'.getSiteUrl()."/images/".$room_info['Immagine'].'">' : ''); ?>
+                    </div>
+
+
+
 
                     <div class="mb-3 col-lg-10 offset-lg-1">
                         <label for="descrizione" class="form-label">Descrzione</label> <span class="err_form"><?php echo($err_descr) ?></span>
                         <textarea class="form-control" id="descr" name="descr" rows="5"><?php echo(isset($room_info) ? $room_info['Descrizione'] : $_POST['descr']);?>
 </textarea>
                     </div>
+
 
                     <div class="mb-3 col-lg-4 offset-lg-1">
                         <BUTTON class="btn btn-primary">SALVA</BUTTON>
@@ -159,6 +167,19 @@ if (isset($_GET['id'])) {
     </form>
 
     <?php require_once("../includes/js.php") ?>
+
+    <script>
+        tinymce.init({
+            selector: 'textarea#descr',
+            plugins: 'lists advlist',
+            toolbar: "undo redo | styleselect fontsizeselect | " +
+                "bold italic underline | forecolor backcolor | " +
+                "alignleft aligncenter alignright alignjustify | " +
+                "bullist numlist | outdent indent | " +
+                "table | link unlink | visualblocks",
+            language: 'it'
+        });
+    </script>
 </body>
 
 </html>
