@@ -27,13 +27,14 @@ $folderName;?>
                 <?php
 
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+    //USER MENU
     echo '
       <div class="dropdown" style="
     float: right;
     right: 20px;
     top: -10px;
 ">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="account-nav"
+                    <button class="btn btn-secondary dropdown" type="button" id="account-nav"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-user userman"></i>
@@ -41,9 +42,55 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                     </button>
                     <div class="dropdown-menu" aria-labelledby="account-nav">
                         <a class="dropdown-item"  href="'.$wurl.'/user/user.php">Account</a>
-                        <a class="dropdown-item" href="#">Carrello</a>
+                        <a class="dropdown-item" href="#">Prenotazioni</a>
                         <a class="dropdown-item"
                             href="'.$wurl.'/logout.php" >Logout</a>
+                    </div>
+                </div>
+    
+    ';
+
+
+    //CART MENU
+
+    $cart_count=0;
+    if (!empty($_SESSION["cart_item"])) {
+        $cart_count=count($_SESSION["cart_item"]);
+    }
+
+    $cart_content=mcartContent();
+
+    echo '
+      <div class="dropdown" style="
+    float: right;
+    right: 25px;
+    top: -10px;
+">
+                    <button class="btn btn-secondary dropdown" type="button" id="cart-nav"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-shopping-cart 
+                         userman"></i>&nbsp;&nbsp;<span class="badge badge-light" id="cart-count">'.$cart_count.'</span>
+
+                    </button>
+                    <div class="dropdown-menu cart-cont" aria-labelledby="cart-nav" >
+                   
+                     <table class="table table-bordered table-sm" id="mcart-table">
+  
+  <tbody id="mcart-body">
+  '.$cart_content.'
+  </tbody>
+</table>';
+
+    if ($cart_content!=="") {
+        echo' <button class="btn btn-light" id="btn-cart-empty" onclick="emptyCart()"><i class="fa fa-trash"></i> SVUOTA CESTINO</button>';
+    } else {
+        echo' <button class="btn btn-light" id="btn-cart-empty" onclick="emptyCart()" style="display:none"><i class="fa fa-trash"></i> SVUOTA CESTINO</button>';
+    }
+
+    echo '
+
+
                     </div>
                 </div>
     

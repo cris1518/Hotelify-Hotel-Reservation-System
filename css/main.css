@@ -13,8 +13,8 @@
 
 .userman {
 
-    margin-left: -45px;
-    padding-right: 10px;
+    margin-left: -40px;
+
 }
 
 .usr-img-room {
@@ -22,4 +22,22 @@
     object-fit: cover !important;
     max-height: 350px !important;
     width: 100%;
+}
+
+
+.site-menu-toggle div button[aria-expanded="true"] {
+    background: #b5b5b5 !important;
+    animation-duration: 30ms;
+}
+
+.cart-cont {
+    width: 30vw !important;
+    margin-left: -10vw !important;
+    padding: 10px !important;
+}
+
+.mcart-product-img {
+    width: 100%;
+    object-fit: contain;
+
 }

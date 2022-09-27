@@ -63,3 +63,8 @@
          </div>
      </div>
  </footer>
+ <script>
+     (".cart-cont").click(function(e) {
+         e.stopPropagation();
+     })
+ </script>

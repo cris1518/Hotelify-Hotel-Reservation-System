@@ -211,3 +211,51 @@
 
 
 })(jQuery);
+
+function getWURL(){
+  var url=window.location.pathname.split("/");
+  return window.location.origin+"/"+url[1];
+}
+function addToCart(id){
+  jQuery.post(getWURL()+"/includes/cart/addToCart.php",{
+    'id':id
+  })
+  .done(function(data){
+     updateCart()
+  })
+}
+
+function delCartItem(arr_id){
+ jQuery.post(getWURL()+"/includes/cart/delCartItem.php",{
+    'arr_id':arr_id
+  })
+  .done(function(data){
+     updateCart()
+  })
+}
+
+function emptyCart(){
+   jQuery.post(getWURL()+"/includes/cart/emptyCart.php")
+  .done(function(data){
+    updateCart()
+  })
+}
+
+function updateCart(){
+   jQuery.post(getWURL()+"/includes/cart/getCart.php")
+  .done(function(res){
+    var data={content:"",count:0}
+    try {
+      data=JSON.parse(res)
+    } catch (error) {
+      
+    }
+ jQuery("#mcart-body").empty().append(data.content)
+  jQuery("#cart-count").empty().append(data.count)
+  if(data.count!=="0" & data.count!==0){
+    jQuery("#btn-cart-empty").attr("style","")
+  }
+
+  })
+}
+

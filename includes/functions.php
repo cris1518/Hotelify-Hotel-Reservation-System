@@ -107,3 +107,63 @@ function updateUser($id, $name, $surname, $phone, $email)
     $conn->close();
     header("Location:".getSiteUrl()."/user/user.php");
 }
+
+
+function addToCart($pid, $name, $qty, $price, $image, $check_in, $check_out)
+{
+    $conn=dbconn(DBHOST, DBNAME, DBUSERNAME, DBPASSWORD);
+
+    $sql="SELECT * FROM stanze where id=$pid";
+    $result=$conn->query($sql);
+
+
+    $itemArray = array('id'=>$pid,'name'=>$name,  'quantity'=>$qty, 'price'=>$price, 'image'=>$image,
+    'check_in'=>$check_in,'check_out'=>$check_out);
+    //check cart session
+
+
+    if (!empty($_SESSION["cart_item"])) {
+        $_SESSION["cart_item"][] = $itemArray;
+    } else {
+        $_SESSION["cart_item"] = [$itemArray];
+    }
+
+    $conn->close();
+}
+
+function mcartContent()
+{
+    $out="";
+    if (!empty($_SESSION['cart_item'])) {
+        $i=0;
+        foreach ($_SESSION['cart_item'] as $k=>$v) {
+            $out.="  <tr>
+      <td width='20%'><img class='mcart-product-img' src='".getSiteUrl()."/images/".$v['image']."'></td>
+      <td width='20%'>".$v['name']."</td>
+      <td width='10%'>".$v['price']."</td>
+      <td width='20%'>".$v['check_in']."<br>".$v['check_out']."</td>
+      <td width='20%'><button type='button' class='btn btn-light' onclick='delCartItem($i)' ><i class='fa fa-trash' ></i></button></td>
+    </tr>";
+            ++$i;
+        }
+        return $out;
+    } else {
+        return "";
+    }
+}
+
+
+function delCartItem($arr_id)
+{
+    print_r($arr_id);
+
+    unset($_SESSION["cart_item"][$arr_id]);
+    $_SESSION["cart_item"] = array_values($_SESSION["cart_item"]);
+}
+
+
+
+function emptyCart()
+{
+    unset($_SESSION["cart_item"]);
+}
