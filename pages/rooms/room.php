@@ -80,9 +80,42 @@ if (isset($_GET['id'])) {
                     <p>
                         <?php echo $room_info['Descrizione']; ?>
                     </p>
-                    <p><button type="button"
-                            onclick="addToCart(<?php echo $room_info['id']; ?>)"
-                            class="btn btn-primary text-white">Prenota Subito</button></p>
+                    <p><button type="button" class="btn btn-primary text-white" data-toggle="collapse"
+                            data-target="#collRes" aria-expanded="false" aria-controls="colRes">Prenota Subito</button>
+                    </p>
+                    <div class="collapse" id="collRes">
+                        <div class="card card-body">
+                            <div class="card" style="border:none">
+                                <div class="card-body" style="padding:0px !important">
+                                    <div class="containter">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <label for="ck-in">Check In</label>
+                                                <input type="text" class="form-control" id='ck-in' required>
+                                                <div class="invalid-feedback" id="err-ck-in">Inserire Check-In
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label for="ck-out">Check Out</label>
+                                                <input type="text" class="form-control" id='ck-out' required>
+                                                <div class="invalid-feedback" id="err-ck-out">Inserire Check-Out
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label for="ck-in">Person</label>
+                                                <input type="text" class="form-control" id='person' required>
+                                                <div class="invalid-feedback" id="err-person">Inserire Numero Persone
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <button class="btn btn-success"
+                                onclick="addToCart(<?php echo $room_info['id'].',\''. $room_info['Nome'].'\''?>)">Prenota</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -96,6 +129,9 @@ if (isset($_GET['id'])) {
        require_once("../../includes/footer.php");
 
 require_once("../../includes/js.php"); ?>
+    <script>
+        roomCalPick();
+    </script>
 </body>
 
 </html>

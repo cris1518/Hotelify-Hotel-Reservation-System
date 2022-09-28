@@ -155,7 +155,7 @@
 
   var dateAndTime = function() {
     $('#m_date').datepicker({
-      'format': 'm/d/yyyy',
+      'format': 'd/m/yyyy',
       'autoclose': true
     });
     $('#checkin_date, #checkout_date').datepicker({
@@ -216,13 +216,41 @@ function getWURL(){
   var url=window.location.pathname.split("/");
   return window.location.origin+"/"+url[1];
 }
-function addToCart(id){
-  jQuery.post(getWURL()+"/includes/cart/addToCart.php",{
-    'id':id
+function addToCart(id,name){
+  var ckin=document.getElementById("ck-in").value;
+  var ckout=document.getElementById("ck-out").value;
+  var person=document.getElementById("person").value;
+
+if(ckin==""){
+document.getElementById("err-ck-in").setAttribute("style","display:block");
+}
+else{
+  document.getElementById("err-ck-in").setAttribute("style","");
+}
+
+if(ckout==""){document.getElementById("err-ck-out").setAttribute("style","display:block");}
+else{document.getElementById("err-ck-out").setAttribute("style","");}
+
+if(person==""){document.getElementById("err-person").setAttribute("style","display:block");}
+else{document.getElementById("err-person").setAttribute("style","");}
+
+if(ckin!=="" & ckout!=="" & person!==""){
+  
+   jQuery.post(getWURL()+"/includes/cart/addToCart.php",{
+    'id':id,
+    'check-in':ckin,
+    'check-out':ckout,
+    'person':person
   })
   .done(function(data){
+    
      updateCart()
+     location.href=getWURL()+"/pages/cart/index.php"
   })
+}
+
+
+ 
 }
 
 function delCartItem(arr_id){
@@ -231,6 +259,11 @@ function delCartItem(arr_id){
   })
   .done(function(data){
      updateCart()
+     try {
+      updateMainCart()
+     } catch (error) {
+      
+     }
   })
 }
 
@@ -238,11 +271,16 @@ function emptyCart(){
    jQuery.post(getWURL()+"/includes/cart/emptyCart.php")
   .done(function(data){
     updateCart()
+       try {
+      updateMainCart()
+     } catch (error) {
+      
+     }
   })
 }
 
 function updateCart(){
-   jQuery.post(getWURL()+"/includes/cart/getCart.php")
+   jQuery.post(getWURL()+"/includes/cart/getCart.php?t=mini-cart")
   .done(function(res){
     var data={content:"",count:0}
     try {
@@ -259,3 +297,52 @@ function updateCart(){
   })
 }
 
+function updateMainCart(){
+   jQuery.post(getWURL()+"/includes/cart/getCart.php?t=main")
+  .done(function(res){
+    var data={content:"",count:0}
+    try {
+      data=JSON.parse(res)
+    } catch (error) {
+      
+    }
+ jQuery("#cart-body").empty().append(data.content)
+  jQuery("#cart-count").empty().append(data.count)
+  if(data.count!=="0" & data.count!==0){
+    jQuery("#btn-cart-empty").attr("style","")
+  }
+
+  })
+}
+
+function roomCalPick(){
+
+  
+ 
+    jQuery('#ck-in, #ck-out').datepicker({
+      'format': 'd/mm/yyyy',
+      'autoclose': true,
+       
+        startDate: new Date()
+
+    });
+   
+}
+
+function cartAlertSucc(name){
+  var html='<div class="alert alert-warning alert-dismissible fade show cart-alert-succ" role="alert">'+
+  name+' aggiunto al carrello con successo!'+
+  '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+    '<span aria-hidden="true">&times;</span>'+
+  '</button>'+
+'</div>';
+  jQuery("body").append(html)
+}
+
+function goToCart(){
+  location.href=getWURL()+"/pages/cart/"
+}
+
+function goCheckout(){
+  location.href=getWURL()+"/pages/checkout/"
+}

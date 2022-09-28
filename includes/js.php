@@ -31,3 +31,10 @@ $folderName."/"?>js/bootstrap-datepicker.js"></script>
 $folderName."/"?>js/jquery.timepicker.min.js"></script>
 <script src="<?php echo 'http://'.$_SERVER['SERVER_NAME']."/".
 $folderName."/"?>js/main.js"></script>
+
+
+<script>
+    jQuery(".cart-cont").click(function(e) {
+        e.stopPropagation();
+    })
+</script>

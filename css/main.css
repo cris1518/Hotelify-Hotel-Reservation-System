@@ -41,3 +41,21 @@
     object-fit: contain;
 
 }
+
+#collRes {
+    width: 30vw;
+}
+
+.cart-alert-succ {
+    position: absolute !important;
+    z-index: 1000;
+    top: 5px;
+    width: 30%;
+    left: 35%;
+}
+
+.cart-card {
+    width: 80%;
+    margin-top: 20px;
+    margin-left: 10%;
+}

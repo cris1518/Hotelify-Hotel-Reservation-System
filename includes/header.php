@@ -82,11 +82,16 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
   </tbody>
 </table>';
 
-    if ($cart_content!=="") {
-        echo' <button class="btn btn-light" id="btn-cart-empty" onclick="emptyCart()"><i class="fa fa-trash"></i> SVUOTA CESTINO</button>';
-    } else {
-        echo' <button class="btn btn-light" id="btn-cart-empty" onclick="emptyCart()" style="display:none"><i class="fa fa-trash"></i> SVUOTA CESTINO</button>';
-    }
+    /*   if ($cart_content!=="") {
+           echo' <button class="btn btn-light" id="btn-cart-empty" onclick="emptyCart()"><i class="fa fa-trash"></i> SVUOTA CESTINO</button>';
+       } else {
+           echo' <button class="btn btn-light" id="btn-cart-empty" onclick="emptyCart()" style="display:none"><i class="fa fa-trash"></i> SVUOTA CESTINO</button>';
+       }*/
+
+
+    echo' <button class="btn btn-light" style="float:left;"  onclick="goCheckout()"><i class="fa fa-credit-card"></i>&nbsp;Procedi all\'ordine</button>';
+    echo' <button class="btn btn-light"  style="float:right;" onclick="goToCart()"><i class="fa fa-shopping-cart"></i>&nbsp;Visualizza Carrello</button>';
+
 
     echo '
 
@@ -113,23 +118,21 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                 <div class="col-md-6 mx-auto">
                                     <ul class="list-unstyled menu">
                                         <li class="active"><a
-                                                href="<?php echo  $wurl."/" ?>index.php?p=home">Home</a>
+                                                href="<?php echo  $wurl."/" ?>?p=home">Home</a>
                                         </li>
                                         <li><a
-                                                href="<?php echo  $wurl."/" ?>index.php?p=rooms">Rooms</a>
+                                                href="<?php echo  $wurl."/" ?>?p=rooms">Rooms</a>
                                         </li>
                                         <li><a
-                                                href="<?php echo  $wurl."/" ?>index.php?p=about">About</a>
+                                                href="<?php echo  $wurl."/" ?>?p=about">About</a>
                                         </li>
                                         <li><a
-                                                href="<?php echo  $wurl."/" ?>index.php?p=events">Events</a>
+                                                href="<?php echo  $wurl."/" ?>?p=events">Events</a>
                                         </li>
                                         <li><a
-                                                href="<?php echo  $wurl."/" ?>index.php?p=contact">Contact</a>
+                                                href="<?php echo  $wurl."/" ?>?p=contact">Contact</a>
                                         </li>
-                                        <li><a
-                                                href="<?php echo  $wurl."/" ?>index.php?p=reservation">Reservation</a>
-                                        </li>
+
 
 
                                     </ul>

@@ -1,3 +1,4 @@
+<?php require_once("includes/initialize.php"); ?>
 <!DOCTYPE HTML>
 <html>
 
@@ -150,7 +151,7 @@
   <?php
   require_once("includes/footer.php");
 
-  require_once("includes/js.php"); ?>
+require_once("includes/js.php"); ?>
 </body>
 
 </html>

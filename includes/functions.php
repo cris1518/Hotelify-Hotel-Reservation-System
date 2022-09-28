@@ -109,7 +109,7 @@ function updateUser($id, $name, $surname, $phone, $email)
 }
 
 
-function addToCart($pid, $name, $qty, $price, $image, $check_in, $check_out)
+function addToCart($pid, $name, $qty, $price, $image, $check_in, $check_out, $person)
 {
     $conn=dbconn(DBHOST, DBNAME, DBUSERNAME, DBPASSWORD);
 
@@ -117,7 +117,7 @@ function addToCart($pid, $name, $qty, $price, $image, $check_in, $check_out)
     $result=$conn->query($sql);
 
 
-    $itemArray = array('id'=>$pid,'name'=>$name,  'quantity'=>$qty, 'price'=>$price, 'image'=>$image,
+    $itemArray = array('id'=>$pid,'name'=>$name,  'quantity'=>$qty,'person'=>$person, 'price'=>$price, 'image'=>$image,
     'check_in'=>$check_in,'check_out'=>$check_out);
     //check cart session
 
@@ -131,6 +131,7 @@ function addToCart($pid, $name, $qty, $price, $image, $check_in, $check_out)
     $conn->close();
 }
 
+//CART CONTENT USED IN THE MINI-CART
 function mcartContent()
 {
     $out="";
@@ -139,9 +140,10 @@ function mcartContent()
         foreach ($_SESSION['cart_item'] as $k=>$v) {
             $out.="  <tr>
       <td width='20%'><img class='mcart-product-img' src='".getSiteUrl()."/images/".$v['image']."'></td>
-      <td width='20%'>".$v['name']."</td>
-      <td width='10%'>".$v['price']."</td>
+      <td width='20%'><a href='".getSiteUrl()."/pages/rooms/room.php/?id=".$v['id']."'>".$v['name']."</a></td>
+      <td width='10%'>".$v['person']."</td>
       <td width='20%'>".$v['check_in']."<br>".$v['check_out']."</td>
+      <td width='10%'>".$v['price']."</td>
       <td width='20%'><button type='button' class='btn btn-light' onclick='delCartItem($i)' ><i class='fa fa-trash' ></i></button></td>
     </tr>";
             ++$i;
@@ -151,6 +153,32 @@ function mcartContent()
         return "";
     }
 }
+
+
+//CART CONTENT USED IN MAIN CART PAGE
+function cartContent()
+{
+    $out="";
+    if (!empty($_SESSION['cart_item'])) {
+        $i=0;
+        foreach ($_SESSION['cart_item'] as $k=>$v) {
+            $out.="  <tr>
+      <td width='10%'><img class='mcart-product-img' src='".getSiteUrl()."/images/".$v['image']."'></td>
+      <td width='20%'><a href='".getSiteUrl()."/pages/rooms/room.php/?id=".$v['id']."'>".$v['name']."</a></td>
+      <td width='10%'>".$v['person']."</td>
+      <td width='20%'>".$v['check_in']."</td>
+      <td width='20%'>".$v['check_out']."</td>
+      <td width='10%'>".$v['price']."</td>
+      <td width='20%'><button type='button' class='btn btn-light' onclick='delCartItem($i)' ><i class='fa fa-trash' ></i></button></td>
+    </tr>";
+            ++$i;
+        }
+        return $out;
+    } else {
+        return "";
+    }
+}
+
 
 
 function delCartItem($arr_id)

@@ -21,9 +21,6 @@ switch ($view) {
     case 'events':
         $content="pages/events/index.php";
         break;
-    case 'reservation':
-        $content="pages/reservation/index.php";
-        break;
     case 'rooms':
         $content="pages/rooms/index.php";
         break;
