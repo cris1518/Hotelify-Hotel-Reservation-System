@@ -32,6 +32,10 @@ $folderName."/"?>js/jquery.timepicker.min.js"></script>
 <script src="<?php echo 'http://'.$_SERVER['SERVER_NAME']."/".
 $folderName."/"?>js/main.js"></script>
 
+<!-- jQuery Datatables-->
+<script src="<?php echo 'http://'.$_SERVER['SERVER_NAME']."/".
+$folderName?>/libs/datatables/datatables.min.js"></script>
+
 
 <script>
     jQuery(".cart-cont").click(function(e) {

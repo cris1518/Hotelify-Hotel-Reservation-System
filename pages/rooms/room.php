@@ -103,8 +103,18 @@ if (isset($_GET['id'])) {
                                             </div>
                                             <div class="col-lg-4">
                                                 <label for="ck-in">Person</label>
-                                                <input type="text" class="form-control" id='person' required>
-                                                <div class="invalid-feedback" id="err-person">Inserire Numero Persone
+                                                <!-- <input type="text" class="form-control" id='person' required> -->
+
+                                                <select class="form-control" id='person'>
+                                                    <?php
+                                                for ($i=0;$i<intval($room_info['Numero_Persone']);$i++) {
+                                                    $y=$i+1;
+                                                    echo ' <option value="'.$y.'">'.$y.'</option>';
+                                                }
+?>
+                                                </select>
+                                                <div class="invalid-feedback" id="err-person">Inserire Numero
+                                                    Persone
                                                 </div>
                                             </div>
                                         </div>

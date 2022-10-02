@@ -117,6 +117,14 @@ if (isset($_GET['p'])==false) {
             </a>
           </li>
 
+          <li
+            class="menu-item <?php echo($_GET['p']=='status' ? 'active' : '') ?>">
+            <a href="index.php?p=status" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-list-ol"></i>
+              <div data-i18n="Analytics">Stati Prenotazione</div>
+            </a>
+          </li>
+
         </ul>
       </aside>
       <!-- / Menu -->
@@ -143,6 +151,10 @@ switch($_GET['p']) {
 
     case 'users':
         $content="users/index.php";
+        break;
+
+    case 'status':
+        $content="status/index.php";
         break;
 
 

@@ -11,7 +11,8 @@ if ($_GET["t"]="main") {
 }
 $arr=[
     "content"=>$content,
-    "count"=>count($_SESSION["cart_item"])
+    "count"=>count($_SESSION["cart_item"]),
+    "total"=>$_SESSION["cart_total"]
 ];
 
 echo json_encode($arr);

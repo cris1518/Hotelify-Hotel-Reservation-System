@@ -42,7 +42,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                     </button>
                     <div class="dropdown-menu" aria-labelledby="account-nav">
                         <a class="dropdown-item"  href="'.$wurl.'/user/user.php">Account</a>
-                        <a class="dropdown-item" href="#">Prenotazioni</a>
+                        <a class="dropdown-item" href="'.$wurl.'/pages/reservations/">Prenotazioni</a>
                         <a class="dropdown-item"
                             href="'.$wurl.'/logout.php" >Logout</a>
                     </div>
@@ -74,24 +74,33 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 
                     </button>
                     <div class="dropdown-menu cart-cont" aria-labelledby="cart-nav" >
-                   
-                     <table class="table table-bordered table-sm" id="mcart-table">
-  
+                  
+';
+
+
+
+
+    if (!empty($_SESSION["cart_item"])) {
+        echo'
+         
+                     <table class="table table-bordered table-sm" id="mcart-table" >
+  <thead>
+  <th></th>
+  <th>Stanza</th>
+  <th>Persone</th>
+  <th>Check-in/out</th>
+  <th>Prezzo</th>
+  <th></th>
+  </thead>
   <tbody id="mcart-body">
   '.$cart_content.'
   </tbody>
-</table>';
+</table>
 
-    /*   if ($cart_content!=="") {
-           echo' <button class="btn btn-light" id="btn-cart-empty" onclick="emptyCart()"><i class="fa fa-trash"></i> SVUOTA CESTINO</button>';
-       } else {
-           echo' <button class="btn btn-light" id="btn-cart-empty" onclick="emptyCart()" style="display:none"><i class="fa fa-trash"></i> SVUOTA CESTINO</button>';
-       }*/
-
-
-    echo' <button class="btn btn-light" style="float:left;"  onclick="goCheckout()"><i class="fa fa-credit-card"></i>&nbsp;Procedi all\'ordine</button>';
-    echo' <button class="btn btn-light"  style="float:right;" onclick="goToCart()"><i class="fa fa-shopping-cart"></i>&nbsp;Visualizza Carrello</button>';
-
+        <p>Totale:&nbsp;<span id="cart-total">'.$_SESSION['cart_total'].'</span>€</p>
+        <button class="btn btn-light" style="float:left;"  onclick="goCheckout()"><i class="fa fa-credit-card"></i>&nbsp;Procedi all\'ordine</button>
+        <button class="btn btn-light"  style="float:right;" onclick="goToCart()"><i class="fa fa-shopping-cart"></i>&nbsp;Visualizza Carrello</button>';
+    }
 
     echo '
 
@@ -105,7 +114,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     float: right;
     margin-right: 20px;
     margin-top: -10px;
-    " class="btn btn-secondary"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   &nbsp;<i class="fas fa-user userman"></i>Accedi</div></a>';
+    " class="btn btn-secondary"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   &nbsp;<i class="fas fa-user userman"></i>&nbsp;&nbsp;Accedi</div></a>';
 }  ?>
 
                 <div class="site-navbar js-site-navbar">

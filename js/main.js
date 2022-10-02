@@ -290,6 +290,7 @@ function updateCart(){
     }
  jQuery("#mcart-body").empty().append(data.content)
   jQuery("#cart-count").empty().append(data.count)
+    jQuery("#cart-total").empty().append(data.total)
   if(data.count!=="0" & data.count!==0){
     jQuery("#btn-cart-empty").attr("style","")
   }
@@ -308,6 +309,8 @@ function updateMainCart(){
     }
  jQuery("#cart-body").empty().append(data.content)
   jQuery("#cart-count").empty().append(data.count)
+  jQuery("#main-cart-total").empty().append(data.total)
+
   if(data.count!=="0" & data.count!==0){
     jQuery("#btn-cart-empty").attr("style","")
   }
@@ -320,7 +323,7 @@ function roomCalPick(){
   
  
     jQuery('#ck-in, #ck-out').datepicker({
-      'format': 'd/mm/yyyy',
+      'format': 'dd/mm/yyyy',
       'autoclose': true,
        
         startDate: new Date()
@@ -345,4 +348,38 @@ function goToCart(){
 
 function goCheckout(){
   location.href=getWURL()+"/pages/checkout/"
+}
+
+
+function newReservation(){
+  //GET FORM DATA
+    var elements = document.getElementById("checkout-data").elements;
+    var obj ={};
+    for(var i = 0 ; i < elements.length ; i++){
+        var item = elements.item(i);
+        if(item.name==""){}
+        else{ obj[item.name] = item.value;}
+       
+    }
+    var errors=0
+    //CHECK FORM DATA AND DISPLAY ERRORS
+   for (const [key, value] of Object.entries(obj)) {
+    if(value=="" & key!==""){
+      
+        jQuery("#err-"+key).attr("style","display:block;")
+         errors++;
+    }else{
+        jQuery("#err-"+key).attr("style","")
+    }
+
+}
+console.log(errors)
+if(errors==0){
+   jQuery.post(getWURL()+"/includes/reservation/newReservation.php",obj)
+  .done(function(res){
+ location.href=getWURL()+"/pages/reservations/"
+  
+  })
+}
+
 }

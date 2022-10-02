@@ -113,3 +113,94 @@ function getUsers()
     $conn->close();
     return $out;
 }
+
+
+
+
+function getStatusList()
+{
+    $conn=dbconn(DBHOST, DBNAME, DBUSERNAME, DBPASSWORD);
+
+    $sql="SELECT * FROM stato_prenotazione";
+
+    $result=$conn->query($sql);
+
+    $out="";
+    while ($row = $result->fetch_assoc()) {
+        $out.="<tr>
+                <td>".$row['id']."</td>
+                <td>".$row['Nome']."</td>
+               
+            </tr>";
+    }
+    $conn->close();
+    return $out;
+}
+
+
+function getAllStatus()
+{
+    $conn=dbconn(DBHOST, DBNAME, DBUSERNAME, DBPASSWORD);
+
+    $sql="SELECT * FROM stato_prenotazione order by id";
+    $result=$conn->query($sql);
+    $out=$result->fetch_all(MYSQLI_ASSOC);
+
+    $conn->close();
+    return $out;
+}
+
+
+
+
+function getAllReservations()
+{
+    $conn=dbconn(DBHOST, DBNAME, DBUSERNAME, DBPASSWORD);
+
+    $sql="SELECT * FROM prenotazioni ORDER BY id DESC";
+
+    $result=$conn->query($sql);
+
+    $conn->close();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+function AllReservationsList()
+{
+    $status=getAllStatus();
+    $arr=getAllReservations();
+    $out="";
+    foreach ($arr as $k=>$v) {
+        $room_info=getRoom($v['Stanza']);
+        $user_info=getUser($v['User']);
+
+        $out=$out."<tr>
+<td style='width:15%;'>".$user_info['Nome']." ".$user_info['Cognome']."</td>
+<td style='width:10%;'><a href='".getSiteUrl()."/admin/rooms/edit.php?t=edit&id=".$room_info['id']."'>".$room_info['Nome']."</a></td>
+<td style='width:5%;'>".$v['Persone']."</td>
+<td style='width:10%;'>".$v['Check_In']."</td>
+<td style='width:10%;'>".$v['Check_Out']."</td>
+<td style='width:10%;'>".$v['Prezzo']."€</td>
+<td style='width:20%;'>". getReservationStatus($v['Stato'])['Nome']."</td>
+<td style='width:20%;'>
+<button type='button' class='btn btn-primary btn-sm btn-action' onclick='openSendEmail(\"".$user_info['Nome']." ".$user_info['Cognome']."\",\"".$v['id']."\")'>Contatta Utente</button>
+<button type='button' class='btn btn-danger btn-sm btn-action' onclick='changeStatus(2,\"".$status[2]['Nome']."\",\"".$v['id']."\")'>Annulla Prenotazione</button>
+<button type='button' class='btn btn-success btn-sm btn-action' onclick='changeStatus(1,\"".$status[1]['Nome']."\",\"".$v['id']."\")'>Conferma Prenotazione</button>
+
+</td>
+</tr>";
+    }
+    return $out;
+}
+
+
+function changeStatus($reservation, $status)
+{
+    $conn=dbconn(DBHOST, DBNAME, DBUSERNAME, DBPASSWORD);
+    $sql="UPDATE prenotazioni SET Stato=".$status."
+     WHERE id=$reservation";
+    echo $sql;
+    $res=$conn->query($sql);
+    $conn->close();
+    return $res;
+}

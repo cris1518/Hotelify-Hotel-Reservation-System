@@ -65,6 +65,14 @@ echo $cart_content;
 ?>
                 </tbody>
             </table>
+            <div class="row">
+                <div class="col col-lg-8">
+                    Totale:&nbsp;<span id="main-cart-total"><?php echo $_SESSION['cart_total']; ?></span>€
+
+                </div>
+                <div class="col col-lg-4"> <button class="btn btn-light" style="float:right;" onclick="goCheckout()"><i
+                            class="fa fa-credit-card"></i>&nbsp;Procedi all'ordine</button></div>
+            </div>
 
         </div>
     </div>

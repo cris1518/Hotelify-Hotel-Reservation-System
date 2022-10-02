@@ -59,3 +59,11 @@
     margin-top: 20px;
     margin-left: 10%;
 }
+
+.form-req {
+    color: red !important;
+}
+
+header.scrolled .container-fluid .row div a div {
+    margin-top: 0px !important;
+}
